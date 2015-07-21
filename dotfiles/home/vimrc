@@ -1,0 +1,69 @@
+syn on
+colo astroboy
+set nocompatible
+
+" Command tab completion
+set wildmode=longest,full
+set wildmenu
+
+" Status line
+set statusline=[%F%m][%l/%L][%o:%B]
+set laststatus=2 "Always on
+
+" Autoindent
+set autoindent
+set expandtab
+set cindent
+set tabstop=8
+set shiftwidth=2
+
+" Highlight long lines
+match ErrorMsg '\%>80v.\+'
+
+" Tab complete in insert mode
+inoremap <tab> 
+inoremap <S-tab> 
+au BufNewFile,BufRead *.c,*.h
+   \ set complete=.,i,k~/.vim/wordlists/c-keywords.list
+au BufNewFile,BufRead *.cpp,*.hpp
+   \ set complete=.,i,k~/.vim/wordlists/cpp-keywords.list
+au BufNewFile,BufRead *.tex,*.md,*.txt
+   \ set complete=.,k/usr/share/dict/words.debian
+
+" View manpages in split
+runtime ftplugin/man.vim
+nnoremap <silent>K :<C-U>exe "Man" v:count "<cword>"<CR>
+
+" Running make
+so ~/.vim/makestuff.vimrc
+
+" Header templates
+so ~/.vim/vimtemplates.vimrc
+
+" Commenting blocks of code.
+so ~/.vim/autocomment.vimrc
+
+" Settings for makefiles
+au BufNewFile,BufRead Makefile*,makefile* set noexpandtab
+
+" Settings for nasm files
+au BufNewFile,BufRead *.nasm set filetype=nasm
+
+" Settings for nasm files
+au BufNewFile,BufRead *.gplot,*.plt set filetype=gnuplot
+
+" Settings for jflex files
+au BufNewFile,BufRead *.jflex set filetype=jflex
+
+" Settings for c, cpp, and java source files
+au BufNewFile,BufRead *.c,*.cpp,*.java,*.h,*.hpp set foldenable
+au BufNewFile,BufRead *.c,*.cpp,*.java,*.h,*.hpp set foldmethod=syntax
+
+" Settings for markdown files
+au BufNewFile,Bufread *.md set filetype=markdown
+
+" Settings for assembly source files
+au BufNewFile,Bufread *.s,*.S set tabstop=8
+au BufNewFile,Bufread *.s,*.S set shiftwidth=8
+au BufNewFile,Bufread *.s,*.S set noexpandtab
+au BufNewFile,Bufread *.s,*.S set filetype=gas

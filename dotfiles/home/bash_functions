@@ -1,0 +1,30 @@
+function wyeastconnect {
+  local PIDFILE="/tmp/wyeastconnect.pid"
+
+  case $1 in
+    -k)
+      if [[ -f ${PIDFILE} ]]; then
+        kill `cat ${PIDFILE}`
+        rm ${PIDFILE}
+      fi;;
+    '')
+      if [[ ! -f ${PIDFILE} ]]; then
+        ssh ada.cs -NL 9001:wyeasthead.cs.pdx.edu:22 &
+        echo $! > ${PIDFILE}
+      fi;;
+    *)
+      echo "Usage: wyeastconnect [-k]"
+  esac
+}
+
+function ssh-wyeast {
+  wyeastconnect
+  sleep 1
+  ssh -p 9001 localhost $@
+}
+
+function scp-wyeast {
+  wyeastconnect
+  sleep 1
+  scp -P 9001 $@ localhost:
+}

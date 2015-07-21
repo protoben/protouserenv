@@ -1,0 +1,32 @@
+activity ""
+altscreen on
+autodetach on
+defbce on
+deflogin on
+defscrollback 2048
+defutf8 on
+msgwait 3
+nethack on
+startup_message off
+
+vbell off
+vbell_msg ""
+bell_msg "<><>ding<><>"
+
+bind ^x quit
+bind ^q remove
+
+# Change screens with ctrl left and right arrows.
+bindkey ^[[1;5A focus prev
+bindkey ^[[1;5B focus next
+bindkey ^[[1;5C next
+bindkey ^[[1;5D prev
+bindkey ^@ windowlist
+
+term screen-256color
+terminfo rxvt-unicode 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+
+caption always "%{= kb}[ %=%{B}%?%-Lw%?%{w}%n*%f %t%?(%u)%?%{B}%?%+Lw%?%?%= %{b}][%{B} %H %{w}%l %{b}][%{B} %d.%m.%Y %{w}%0c %{b}]"
+sorendition kB
+
+screen bash

@@ -1,0 +1,81 @@
+[core]
+	editor		= vim
+	pager		= less
+	whitespace	= blank-at-eol,space-before-tab,blank-at-eof
+	preloadindex	= true
+	autocrlf	= input
+	safecrlf	= true
+
+[user]
+	name	= "Ben Hamlin"
+	email 	= protob3n@gmail.com
+
+[push]
+	default	= simple
+
+[color]
+	branch		= always
+	diff		= always
+	grep		= always
+	interactive	= always
+	pager		= true
+	showbranch	= always
+	status		= always
+
+[color "branch"]
+	plain		= white		black
+	current		= red		black
+	remote		= yellow	black
+	upstream	= bold yellow	black
+	local 		= blue		black
+
+[color "diff"]
+	plain		= white		black
+	meta		= magenta	black
+	frag		= cyan		black
+	func		= green		black
+	old		= bold blue	black
+	new		= bold yellow	black
+	commit		= bold magenta	black
+
+[color "decorate"]
+	branch		= white		black
+	remoteBranch	= yellow	black
+	tag		= bold red	black
+	stash		= magenta	black
+	HEAD		= red		black
+
+[color "grep"]
+	selected	= white		black
+	context		= bold cyan	black
+	filename	= yellow	black
+	function	= green		black
+	linenumber	= magenta	black
+	match		= red		black
+	separator	= blue		black
+
+[color "interactive"]
+	prompt	= white		black
+	header	= magenta	black
+	help	= bold green	black
+	error	= bold yellow	black
+
+[color "status"]
+	header		= white		black
+	added		= blue		black
+	changed		= red		black
+	untracked	= yellow	black
+	branch		= bold blue	black
+	nobranch	= bold yellow	black
+
+[tig]
+	git-colors		= true
+	line-graphics		= default
+	show-changes		= true
+	tab-size		= 4
+	vertical-split		= true
+	split-view-height	= 80%
+	graph			= true
+
+[tig "color"]
+	cursor	= black		magenta

@@ -1,0 +1,49 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# UTF-8: it ain't working
+export SIMPLE_PS1=1
+
+# Snazzy prompt
+[[ -f ~/.bash_prompt ]] && . ~/.bash_prompt
+
+# Source .bash_aliases if it exists
+[[ -f $HOME/.bash_aliases ]] && . $HOME/.bash_aliases
+
+# Source .bash_functions if it exists
+[[ -f $HOME/.bash_functions ]] && . $HOME/.bash_functions
+
+# Add "/home/hamlinb/bin" to executable path only if it's not there
+[[ ! $PATH =~ "$HOME/bin" ]] && PATH="$PATH:$HOME/bin"
+
+# Add tab completion for various programs
+complete -cf sudo
+complete -c man
+complete -W "`cut -d ',' -f 1 $HOME/.ssh/known_hosts | cut -d ' ' -f 1 | sort | uniq | xargs`" ssh
+
+# Default browser: w3m
+export BROWSER=`command -v w3m`
+
+# Default editor: vim
+export EDITOR=`command -v vim`
+export VISUAL=`command -v vim`
+
+# Fontname completion for figlet
+dirlist="`ls /usr/share/figlet/fonts/*.[ft]lf`"
+fonts=
+for font in $dirlist; do
+  font=`basename $font`
+  fonts="$fonts ${font%.[tf]lf}"
+done
+complete -W "$fonts" figlet
+
+# Completion for sysctl
+switches="`sysctl -N net 2> /dev/null`"
+complete -W "$switches" sysctl
+
+# Extended file globbing
+shopt -s extglob

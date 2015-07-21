@@ -1,0 +1,7 @@
+XTerm*utf8: 1
+XTerm*font: -*-terminus-*-*-*-*-15-*-*-*-*-*-*-*
+XTerm*background: rgb:00/00/00
+XTerm*foreground: rgb:90/90/c0
+*metaSendsEscape: true
+*eightBitInput: false
+Mupdf*background: rgb:00/00/00

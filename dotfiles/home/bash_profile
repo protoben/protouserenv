@@ -1,0 +1,11 @@
+#
+# ~/.bash_profile
+#
+
+[[ -e ~/.bashrc ]] && . ~/.bashrc
+
+export VISUAL=vim
+export CLICOLOR=1
+
+#Make xinit automatic at login.
+#[[ -n /tmp/.X0-lock ]] && xinit
