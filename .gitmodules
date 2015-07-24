@@ -1,3 +1,6 @@
 [submodule "dmenu"]
 	path = dmenu/repo
 	url = http://git.suckless.org/dmenu
+[submodule "slock"]
+	path = slock/repo
+	url = http://git.suckless.org/slock

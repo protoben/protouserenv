@@ -1,0 +1,82 @@
+#!/bin/bash
+
+LIB=stdio.h: #The colon is necessary here because I suck at regex parsing
+VERSION=0.4
+
+E_INVALID_ARG=1
+E_WTF=9001
+
+# Print usage info
+usage()
+{
+	echo
+	echo "${0##*/} v$VERSION"
+	echo "Run C code."
+	echo
+	echo "Usage:"
+	echo "crun [ -l lib | -h ] 'code' [args]"
+	echo "	-l: Specify a colon-separated list of C libraries."
+    echo "  -m: Don't wrap code in a main function."
+	echo "	-h: Print this help message and exit."
+	echo
+}
+
+# Attempt to compile and run the argument via gcc.
+run()
+{
+	echo "/*Temporary source file created by ${0##*/}*/" > .crun_temp.c
+	while [[ $LIB ]]; do
+		echo "#include <${LIB%%:*}>" >> .crun_temp.c
+		LIB=${LIB#*:}
+	done
+
+	if [[ -n $NO_MAIN ]]; then
+		echo "$1" >> .crun_temp.c
+	else
+		echo "int main(int argc, char **argv, char **envp){$1}" >> .crun_temp.c
+	fi
+
+	gcc -o .crun_temp.o .crun_temp.c -lm
+
+	if [[ -a .crun_temp.o ]]; then
+        	./.crun_temp.o ${@#"$1"}
+		rm .crun_temp.o
+	fi
+
+	rm .crun_temp.c
+
+	exit 0
+}
+
+if [[ $# == 0 ]]; then
+	usage
+	exit $E_INVALID_ARGS
+else
+	while [[ -n "$1" ]]; do
+		case $1 in
+		-l*	) if [[ ${1#-l} ]]; then
+				LIB="${1#-l}:$LIB"
+			else
+				SET_LIBS=1
+			fi
+            shift
+			;;
+		-m*	) NO_MAIN=1; shift;;
+		-h*	) usage; exit 0;;
+		-*	) echo "**Unknown switch: $i"; usage; exit $E_INVALID_ARGS;;
+		*	) if [[ -n $SET_LIBS ]]; then
+				LIB="$1:$LIB"
+				unset SET_LIBS
+                shift
+			else
+				[[ -e $1 ]] && i=$(grep -v ^# $1)
+                code="$1"
+                shift
+				run "$code" $@
+			fi
+			;;
+		esac
+	done
+fi
+
+exit 0

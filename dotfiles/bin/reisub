@@ -1,0 +1,19 @@
+#! /bin/sh
+
+if [ ${EUID} -ne 0 ]
+then
+  echo "You must be root to do this"
+  exit
+fi
+
+echo 1 > /proc/sys/kernel/sysrq
+
+'(
+  echo r > /proc/sysrq_trigger
+  echo e > /proc/sysrq_trigger
+  sleep 3
+  echo i > /proc/sysrq_trigger
+  echo s > /proc/sysrq_trigger
+  echo u > /proc/sysrq_trigger
+  echo b > /proc/sysrq_trigger
+)'

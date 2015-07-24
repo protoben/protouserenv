@@ -1,0 +1,12 @@
+#! /usr/bin/env bash
+
+DEV="wlan0"
+
+if [ $1 ]
+then
+  DEV="$1"
+fi
+
+nc -Uu /var/run/wpa_supplicant/${DEV} <<< "ATTACH"
+nc -Uu /var/run/wpa_supplicant/${DEV} <<< "RECONFIGURE"
+nc -Uu /var/run/wpa_supplicant/${DEV} <<< "DETACH"

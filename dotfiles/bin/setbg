@@ -1,0 +1,17 @@
+#! /usr/bin/env bash
+
+function setbg
+{
+  local file_dir="/home/hamlinb/desktop"
+  local files=( $( ls $file_dir | xargs ) )
+  local file_count=${#files[@]}
+  local rand=$( echo "`head -c1 /dev/urandom | hexdump -d | awk '/0000000/ {print($2)}'` % $file_count" | bc )
+
+  hsetroot -fill $file_dir/${files[$rand]}
+
+  return 0
+}
+
+setbg
+
+exit 0
