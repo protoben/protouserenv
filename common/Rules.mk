@@ -60,7 +60,7 @@ build/.patch: ${PATCHES}
 clean:
 	@${ECHO} 'RM build'
 	@${RM} ${BUILD}
-	@for file in $(filter-out %.diff,$(shell echo ${PATCHDIR}/*)); do \
+	@for file in $(filter-out %.diff %/*,$(shell echo ${PATCHDIR}/*)); do \
 		${ECHO} "RM $$file"; \
                 ${RM} "$$file"; \
 	done
