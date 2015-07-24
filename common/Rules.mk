@@ -7,12 +7,12 @@ MKDIR	= mkdir
 ECHO	= echo '${NAME}:'
 
 PATCHDIR= $${PWD}/patches
-ifneq ($(shell ls -1 ${PATCHDIR} | wc -l), 0)
+ifneq ($(shell ls -1 ${PATCHDIR} 2> /dev/null | wc -l), 0)
 PATCHES	= $(shell echo ${PATCHDIR}/*)
 endif
 
 FILEDIR	= $${PWD}/files
-ifneq ($(shell ls -1 ${FILEDIR} | wc -l), 0)
+ifneq ($(shell ls -1 ${FILEDIR} 2> /dev/null | wc -l), 0)
 FILES	= $(shell echo ${FILEDIR}/*)
 endif
 
