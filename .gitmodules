@@ -7,3 +7,6 @@
 [submodule "tabbed"]
 	path = tabbed/repo
 	url = http://git.suckless.org/tabbed
+[submodule "st"]
+	path = st/repo
+	url = http://git.suckless.org/st
