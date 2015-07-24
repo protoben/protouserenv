@@ -7,10 +7,14 @@ MKDIR	= mkdir
 ECHO	= echo '${NAME}:'
 
 PATCHDIR= $${PWD}/patches
+ifneq ($(shell ls -1 ${PATCHDIR} | wc -l), 0)
 PATCHES	= $(shell echo ${PATCHDIR}/*)
+endif
 
 FILEDIR	= $${PWD}/files
+ifneq ($(shell ls -1 ${FILEDIR} | wc -l), 0)
 FILES	= $(shell echo ${FILEDIR}/*)
+endif
 
 BUILD	= $${PWD}/build
 REPO	= $${PWD}/repo
@@ -49,7 +53,7 @@ build/.copy: ${FILES}
 build/.patch: ${PATCHES}
 	@touch ${BUILD}/.patch
 	@for patch in ${PATCHES}; do \
-		target="${BUILD}/`basename $${patch%.diff}`"; \
+		target="${BUILD}/`basename $${patch%.*.diff}`"; \
 		${ECHO} "`patch $$target < $$patch`"; \
 	done
 
