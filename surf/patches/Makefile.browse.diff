@@ -1,0 +1,24 @@
+diff --git a/Makefile b/Makefile
+index a9d4d1d..e1600f4 100644
+--- a/Makefile
++++ b/Makefile
+@@ -47,6 +47,10 @@ install: all
+ 	@mkdir -p ${DESTDIR}${PREFIX}/bin
+ 	@cp -f surf ${DESTDIR}${PREFIX}/bin
+ 	@chmod 755 ${DESTDIR}${PREFIX}/bin/surf
++	@echo installing browse script to ${DESTDIR}${PREFIX}/bin
++	@mkdir -p ${DESTDIR}${PREFIX}/bin
++	@cp -f browse ${DESTDIR}${PREFIX}/bin
++	@chmod 755 ${DESTDIR}${PREFIX}/bin/browse
+ 	@echo installing manual page to ${DESTDIR}${MANPREFIX}/man1
+ 	@mkdir -p ${DESTDIR}${MANPREFIX}/man1
+ 	@sed "s/VERSION/${VERSION}/g" < surf.1 > ${DESTDIR}${MANPREFIX}/man1/surf.1
+@@ -55,6 +59,8 @@ install: all
+ uninstall:
+ 	@echo removing executable file from ${DESTDIR}${PREFIX}/bin
+ 	@rm -f ${DESTDIR}${PREFIX}/bin/surf
++	@echo removing browse script from ${DESTDIR}${PREFIX}/bin
++	@rm -f ${DESTDIR}${PREFIX}/bin/browse
+ 	@echo removing manual page from ${DESTDIR}${MANPREFIX}/man1
+ 	@rm -f ${DESTDIR}${MANPREFIX}/man1/surf.1
+ 

@@ -1,0 +1,59 @@
+#! /usr/bin/env bash
+
+SURFOPTS='-bs'
+LOGFILE="$HOME/.surf/log"
+LOGLINEMAX=100
+WINDOWFILE="$HOME/.surf/window"
+BMFILE="$HOME/.surf/bookmarks"
+URI="duckduckgo.com"
+NEWTABBED=
+
+OPTSTRING="hq:nb:l"
+USAGE="Usage: $0 [-hnl] [-b bookmark_num] [-q search_query]
+       \n\t-q) Specify a duckduckgo search query
+       \n\t-n) Force surf to open in a new tabbed instance
+       \n\t-l) List bookmarks
+       \n\t-b) Select bookmark to open
+       \n\t-h) Print this message"
+
+while getopts $OPTSTRING opt
+do
+  case $opt in
+    b) URI="`awk 'NR == arg {print($0);}' arg=$OPTARG $BMFILE`";;
+    q) URI="duckduckgo.com?q=$OPTARG"; SURFOPTS='-bS';;
+    h) echo -e $USAGE; exit 0;;
+    l) awk '{printf("%d:\t%s\n", NR, $0);}' $BMFILE; exit 0;;
+    n) NEWTABBED=1;;
+    \?) echo -e $USAGE; exit 1;;
+  esac
+done
+
+if [[ $OPTIND -le $# ]]
+then
+  index=`bc <<< "$# - 1"`
+  shift $index
+  URI=$1
+fi
+
+if [[ `wc -l $LOGFILE | awk '{print($1)}'` -ge $LOGLINEMAX ]]
+then
+  mv $LOGFILE ${LOGFILE}.1
+  gzip ${LOGFILE}.1
+fi
+
+# Open a new tabbed if necessary
+if [[ -z $NEWTABBED ]]
+then
+  xprop -id `cat $WINDOWFILE` > /dev/null 2> /dev/null
+  if [[ $? -eq 0 ]]
+  then
+    WINDOW=`cat $WINDOWFILE`
+  else
+    WINDOW=`tabbed -dcs surf $SURFOPTS -e 2> /dev/null`
+    echo $WINDOW > $WINDOWFILE
+  fi
+else
+  WINDOW=`tabbed -dcs surf $SURFOPTS -e 2> /dev/null`
+fi
+
+surf $SURFOPTS -e $WINDOW "$URI" 2>> $LOGFILE >> $LOGFILE &
