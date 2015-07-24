@@ -1,0 +1,53 @@
+diff --git a/slock.c b/slock.c
+index b3bee92..00b1b7b 100644
+--- a/slock.c
++++ b/slock.c
+@@ -11,6 +11,7 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <string.h>
++#include <time.h>
+ #include <unistd.h>
+ #include <sys/types.h>
+ #include <X11/extensions/Xrandr.h>
+@@ -23,13 +24,6 @@
+ #include <bsd_auth.h>
+ #endif
+ 
+-enum {
+-	INIT,
+-	INPUT,
+-	FAILED,
+-	NUMCOLS
+-};
+-
+ #include "config.h"
+ 
+ typedef struct {
+@@ -137,6 +131,7 @@ readpw(Display *dpy, const char *pws)
+ 
+ 	len = 0;
+ 	running = True;
++        color = (rand() % (NUMCOLS - 2)) + 1;
+ 
+ 	/* As "slock" stands for "Simple X display locker", the DPMS settings
+ 	 * had been removed and you can set it with "xset" or some other
+@@ -186,7 +181,8 @@ readpw(Display *dpy, const char *pws)
+ 				}
+ 				break;
+ 			}
+-			color = len ? INPUT : (failure || failonclear ? FAILED : INIT);
++			color = len ? (color + rand() % (NUMCOLS - 3)) % (NUMCOLS - 2) + 1
++			            : (failure || failonclear ? FAILED : INIT);
+ 			if (oldc != color) {
+ 				for (screen = 0; screen < nscreens; screen++) {
+ 					XSetWindowBackground(dpy, locks[screen]->win, locks[screen]->colors[color]);
+@@ -317,6 +313,8 @@ main(int argc, char **argv) {
+ 	pws = getpw();
+ #endif
+ 
++        srand(time(NULL));
++
+ 	if (!(dpy = XOpenDisplay(0)))
+ 		die("slock: cannot open display\n");
+ 	rr = XRRQueryExtension(dpy, &rrevbase, &rrerrbase);
