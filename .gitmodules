@@ -5,5 +5,5 @@
 	path = slock/repo
 	url = http://git.suckless.org/slock
 [submodule "tabbed"]
-	path = tabbed/tabbed/repo
+	path = tabbed/repo
 	url = http://git.suckless.org/tabbed
