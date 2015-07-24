@@ -16,7 +16,7 @@ usage()
 	echo "Usage:"
 	echo "crun [ -l lib | -h ] 'code' [args]"
 	echo "	-l: Specify a colon-separated list of C libraries."
-    echo "  -m: Don't wrap code in a main function."
+	echo "  -m: Don't wrap code in a main function."
 	echo "	-h: Print this help message and exit."
 	echo
 }
