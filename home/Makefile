@@ -1,21 +1,21 @@
 LN	= ln
 LNFLAGS	= -f
 
-.PHONY: all install home bin
+.PHONY: all install dotfiles bin
 
 all:
 
-install: home bin
+install: dotfiles bin
 
-home:
-	@find home -mindepth 1 -maxdepth 1 \
+dotfiles:
+	@find dotfiles -mindepth 1 -maxdepth 1 \
 	  -type f -execdir bash -c \
 	    'dst="$${HOME}/.`basename $$1`"; \
-	    echo "LN home/`basename "$$1"` $$dst"; \
+	    echo "LN dotfiles/`basename "$$1"` $$dst"; \
 	    ${LN} ${LNFLAGS} "$$1" "$$dst"' - '{}' \; \
 	  -or -type d -execdir bash -c \
 	    'dst="$${HOME}/.`basename $$1`"; \
-	    echo "LN home/`basename "$$1"` $$dst"; \
+	    echo "LN dotfiles/`basename "$$1"` $$dst"; \
 	    ${LN} ${LNFLAGS} -sr "$$1" "$$dst"' - '{}' \;
 
 bin:
