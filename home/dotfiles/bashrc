@@ -27,6 +27,7 @@ complete -W "`cut -d ',' -f 1 $HOME/.ssh/known_hosts | cut -d ' ' -f 1 | sort | 
 
 # Default browser: w3m
 export BROWSER=`command -v w3m`
+export wiki_browser=$BROWSER
 
 # Default editor: vim
 export EDITOR=`command -v vim`
