@@ -1,10 +1,11 @@
 #! /usr/bin/env bash
 
 SURFOPTS='-bs'
-LOGFILE="$HOME/.surf/log"
+SURFDIR="$HOME/.surf"
+LOGFILE="$SURFDIR/log"
 LOGLINEMAX=100
-WINDOWFILE="$HOME/.surf/window"
-BMFILE="$HOME/.surf/bookmarks"
+WINDOWFILE="$SURFDIR/window"
+BMFILE="$SURFDIR/bookmarks"
 URI="duckduckgo.com"
 NEWTABBED=
 
@@ -33,6 +34,16 @@ then
   index=`bc <<< "$# - 1"`
   shift $index
   URI=$1
+fi
+
+if [[ ! -d "$SURFDIR" ]]
+then
+  mkdir -p "$SURFDIR"
+fi
+
+if [[ ! -f "$LOGFILE" ]]
+then
+  touch "$LOGFILE"
 fi
 
 if [[ `wc -l $LOGFILE | awk '{print($1)}'` -ge $LOGLINEMAX ]]
