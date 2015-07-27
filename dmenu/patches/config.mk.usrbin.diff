@@ -1,0 +1,13 @@
+diff --git a/config.mk b/config.mk
+index 95690f9..07fb28f 100644
+--- a/config.mk
++++ b/config.mk
+@@ -2,7 +2,7 @@
+ VERSION = 4.6
+ 
+ # paths
+-PREFIX = /usr/local
++PREFIX = /usr
+ MANPREFIX = ${PREFIX}/share/man
+ 
+ X11INC = /usr/X11R6/include
