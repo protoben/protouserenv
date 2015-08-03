@@ -2,19 +2,20 @@
 
 /* appearance */
 static const char *fonts[] = {
+    "profont:size=11",
     "Sans:size=10.5",
     "VL Gothic:size=10.5",
     "WenQuanYi Micro Hei:size=10.5",
 };
-static const char dmenufont[]       = "-*-profont-*-*-*-*-14-*-*-*-*-*-*-*";
-static const char normbordercolor[] = "#444444";
-static const char normbgcolor[]     = "#222222";
-static const char normfgcolor[]     = "#9090c0";
-static const char selbordercolor[]  = "#0000c0";
+static const char dmenufont[]       = "profont:size=11";
+static const char normbordercolor[] = "#3399ff";
+static const char normbgcolor[]     = "#000000";
+static const char normfgcolor[]     = "#3399ff";
+static const char selbordercolor[]  = "#ff3399";
 static const char selbgcolor[]      = "#000000";
-static const char selfgcolor[]      = "#9090c0";
+static const char selfgcolor[]      = "#ff3399";
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
-static const unsigned int snap      = 32;       /* snap pixel */
+static const unsigned int snap      = 8;        /* snap pixel */
 static const Bool showbar           = False;    /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 
@@ -30,7 +31,7 @@ static const Rule rules[] = {
 	{ "Firefox",  NULL,       NULL,       1 << 8,       False,       -1 },
 	{ "Surf",     NULL,       NULL,       1 << 8,       False,       -1 },
 	{ "tabbed",   NULL,       NULL,       1 << 8,       False,       -1 },
-	{ "Qiv",      NULL,       NULL,       0,            True,        -1 },
+	{ "qiv",      NULL,       NULL,       0,            True,        -1 },
 };
 
 /* layout(s) */
