@@ -1,0 +1,13 @@
+diff --git a/Makefile b/Makefile
+index 8f14a8c..3b224d0 100644
+--- a/Makefile
++++ b/Makefile
+@@ -48,7 +48,7 @@ dist: clean
+ install: all
+ 	@echo installing executables to ${DESTDIR}${PREFIX}/bin
+ 	@mkdir -p ${DESTDIR}${PREFIX}/bin
+-	@cp -f dmenu dmenu_path dmenu_run stest ${DESTDIR}${PREFIX}/bin
++	@cp -f dmenu dmenu_path dmenu_run dmenu_wpa stest ${DESTDIR}${PREFIX}/bin
+ 	@chmod 755 ${DESTDIR}${PREFIX}/bin/dmenu
+ 	@chmod 755 ${DESTDIR}${PREFIX}/bin/dmenu_path
+ 	@chmod 755 ${DESTDIR}${PREFIX}/bin/dmenu_run

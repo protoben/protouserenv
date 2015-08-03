@@ -1,0 +1,11 @@
+diff --git a/config.def.h b/config.def.h
+index 4e5e3e7..d084d7d 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -17,3 +17,6 @@ static const char *outbgcolor  = "#00ffff";
+ static const char *outfgcolor  = "#000000";
+ /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
+ static unsigned int lines      = 0;
++static char persist[BUFSIZ]    = "";        /* Nonempty string turns -p mode on by default   */
++static unsigned int outmax     = 500;       /* Max lines of output to keep in memory         */
++static unsigned int outmin     = 15;        /* Default number of lines for persist mode      */
