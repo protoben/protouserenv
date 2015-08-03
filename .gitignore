@@ -2,3 +2,4 @@
 *.out
 *.sw?
 */build/
+home/dotfiles/vim/.netrwhist
