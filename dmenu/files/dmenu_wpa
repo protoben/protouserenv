@@ -8,4 +8,4 @@ BEGIN {
     print($1);
   else if($1 == "commands:")
     on = 1;
-}' | dmenu -l 20 -P 'wpa_cli -i wlan0' &
+}' | dmenu $@ -l 20 -P 'wpa_cli -i wlan0' &
