@@ -1,3 +1,5 @@
+# vim: set filetype=sh :
+
 # Color constants
 txtblk='\[\e[0;30m\]' # Black - Regular
 txtred='\[\e[0;31m\]' # Red
@@ -33,38 +35,127 @@ bakcyn='\[\e[46m\]'   # Cyan
 bakwht='\[\e[47m\]'   # White
 txtrst='\[\e[0m\]'    # Text Reset
 
-# Box drawing constants
-SINGLE_DOUBLE_UL='\342\225\223'
-SINGLE_DOUBLE_LL='\342\225\231'
-SINGLE_UL='\342\224\216'
-SINGLE_LL='\342\224\226'
-ARC_UL='\342\225\255'
-ARC_LL='\342\225\260'
-BLACK_CIRCLE='\342\227\217'
-BLACK_SMALL_SQUARE='\342\226\254'
-HORZ='\342\224\200'
-VERT='\342\224\202'
-TEE_L='\342\224\244'
-TEE_R='\342\224\234'
+case $((RANDOM % 6)) in
+  0) ps_gradient=(196 197 198 199 200 165 129 93 57 21);;
+  1) ps_gradient=(93 129 165 201 205 204 203 202);;
+  2) ps_gradient=(19 20 56 92 128 164);;
+  5) ps_gradient=(202 203 204 210 216 222 228 227 226);;
+esac
 
-# Set the ornament color based on permision level
-if [[ $UID == 0 ]]; then
-  WARNING_C=$txtred
-else
-  WARNING_C=$txtblu
-fi
+ps_template=(hostname retval numjobs loadavg cwd)
 
-# Set the color of the prompt info
-INFO_C=$txtrst
+makeps() {
+  local ret=$?
+  local max_w="`stty size | cut -d ' ' -f 2`"
 
-# Determine whether we can use box drawing to make a pretty prompt
-if [[ -n $DVTM || -n $SIMPLE_PS1 ]]; then
-  NO_BOX_DRAW=1
-fi
+  [[ -z "$1" ]] && {
+    local elem elem_w row p prompt
+    local row_w=0
+    local row_n=0
+    declare -a rows
+
+    for ((p = 0; p < ${#ps_template[@]}; ++p)); do
+      elem="`makeps ${ps_template[$p]}`"
+
+      elem_w="`echo -n "$elem" | wc -c`"
+      ((row_w += elem_w))
+      ((row_w > max_w)) && {
+        rows[$row_n]="'$row'"
+        row="$elem"
+        row_w="$elem_w"
+        ((++row_n))
+        continue
+      }
+
+      row+="$elem"
+    done
+    (( row_w != 0 )) &&
+      rows[$row_n]="'$row'"
+
+    echo "`eval makeps colorize ${rows[@]}`"
+
+    return $ret
+  }
+
+  case $1 in
+    hostname)
+      echo -n "[ ${USER}@${HOSTNAME} ]"
+      ;;
+    retval)
+      echo -n "[ return: $ret ]"
+      ;;
+    numjobs)
+      echo -n "[ jobs: `jobs | wc -l` ]"
+      ;;
+    loadavg) # TODO: Make this work
+      echo -n "[ load avg: `cut -d ' ' -f 2 /proc/loadavg` ]"
+      ;;
+    cwd)
+      local cwd="${PWD/$HOME/\~}"
+      ((`echo -n $cwd | wc -c` + 4 > max_w)) &&
+        cwd="`basename $cwd`"
+      echo -n "[ $cwd ]"
+      ;;
+    line1)
+      echo -n "$(prompt h)$(prompt r)$(prompt j)"
+      ;;
+    line2)
+      echo -n "$(prompt L)$(prompt w)"
+      ;;
+    $)
+      if (( EUID == 0 )); then
+        echo -n '# '
+      else
+        echo -n '$ '
+      fi
+      echo -n "$txtrst"
+      ;;
+    colorize)
+      local longest=0
+      local gstart=0
+      local len oifs i c g
+      declare -a lines line
+      shift
+      
+      i=0
+      while [ "$1" ]; do
+        lines[$i]="$1"
+        len="`wc -c <<< ${lines[$i]}`"
+        ((len > longest)) && longest=$len
+        let i++
+        shift
+      done
+
+      chunk=$((longest / ${#ps_gradient[@]}))
+      ((chunk < 1)) && chunk=1
+
+      oifs=$IFS
+      IFS='^'
+      for ((i = 0; i < ${#lines[@]}; ++i)); do
+        line=(`sed -r 's/(.)/\1^/g' <<< ${lines[$i]}`)
+
+        g=$gstart
+        for ((c = 0; c < ${#line[@]}; ++c)); do
+          ((c % chunk == 0 && g < ${#ps_gradient[@]})) && {
+            tput setaf ${ps_gradient[$g]}
+            let g++
+          }
+          echo -n "${line[c]}"
+        done
+
+        #let gstart++
+        tput setaf ${ps_gradient[$gstart]}
+        echo
+      done
+      IFS=$oifs
+      ;;
+    *)
+      echo -n "[ makeps: can't parse $1 ]"
+      ;;
+  esac
+
+  return $ret
+}
 
 # Draw the prompt
-if [[ -z $NO_BOX_DRAW ]]; then
-  PS1="$WARNING_C$SINGLE_UL$HORZ$TEE_L$INFO_C \u@\h $WARNING_C$VERT$INFO_C return: \`echo \$?\` $WARNING_C$VERT$INFO_C jobs: \j $WARNING_C$VERT$INFO_C load avg: \`uptime | awk '{print(\$(NF-2))}' | tr -d ','\` $WARNING_C$VERT$INFO_C \w $WARNING_C$TEE_R$BLACK_CIRCLE\n$SINGLE_LL$HORZ$HORZ$BLACK_CIRCLE$txtrst "
-else
-  PS1="$WARNING_C[$INFO_C \u@\h $WARNING_C][$INFO_C return: \`echo \$?\` $WARNING_C][$INFO_C jobs: \j $WARNING_C]\n[$INFO_C load avg: \`uptime | awk '{print(\$(NF-2))}' | tr -d ','\` $WARNING_C][$INFO_C \w $WARNING_C]\n\$$txtrst "
-fi
+export PS1="\`makeps\`\n\$$txtrst "
