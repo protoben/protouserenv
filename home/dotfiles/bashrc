@@ -5,9 +5,6 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# UTF-8: it ain't working
-export SIMPLE_PS1=1
-
 # Snazzy prompt
 [[ -f ~/.bash_prompt ]] && . ~/.bash_prompt
 
@@ -34,12 +31,7 @@ export EDITOR=`command -v vim`
 export VISUAL=`command -v vim`
 
 # Fontname completion for figlet
-dirlist="`ls /usr/share/figlet/fonts/*.[ft]lf`"
-fonts=
-for font in $dirlist; do
-  font=`basename $font`
-  fonts="$fonts ${font%.[tf]lf}"
-done
+fonts="`find  /usr/share/figlet/fonts/ -name *.[ft]lf | sed -r 's/.*\/(.*)\.[ft]lf$/\1/'`"
 complete -W "$fonts" figlet
 
 # Completion for sysctl
