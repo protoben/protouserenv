@@ -49,8 +49,7 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 	unset f
 fi
 
-xcompmgr &
+#xcompmgr &
 #hsetroot -fill "/home/hamlinb/desktop/seoul-pink.jpeg" -gamma .7
 /home/hamlinb/bin/setbg #Use a random bg out of ~/desktop
-#exec spectrwm
 exec dwm
