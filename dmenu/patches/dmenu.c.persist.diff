@@ -1,5 +1,5 @@
 diff --git a/dmenu.c b/dmenu.c
-index 11b6e8d..dec44e0 100644
+index 11b6e8d..3fc866f 100644
 --- a/dmenu.c
 +++ b/dmenu.c
 @@ -1,6 +1,8 @@
@@ -306,3 +306,12 @@ index 11b6e8d..dec44e0 100644
  	case XK_Tab:
  		if(!sel)
  			return;
+@@ -559,7 +701,7 @@ readstdin(void) {
+ 	if(items)
+ 		items[i].text = NULL;
+ 	inputw = maxstr ? TEXTW(maxstr) : 0;
+-	lines = MIN(lines, i);
++	lines = persist[0] ? lines : MIN(lines, i);
+ }
+ 
+ void
