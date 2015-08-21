@@ -33,6 +33,7 @@ au BufNewFile,BufRead *.tex,*.md,*.txt
 " View manpages in split
 runtime ftplugin/man.vim
 nnoremap <silent>K :<C-U>exe "Man" v:count "<cword>"<CR>
+vmap <silent>K y :<C-U>exe "Man" v:count "<C-R>""<CR>
 
 " Running make
 so ~/.vim/makestuff.vimrc
