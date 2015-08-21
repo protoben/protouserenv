@@ -35,11 +35,11 @@ bakcyn='\[\e[46m\]'   # Cyan
 bakwht='\[\e[47m\]'   # White
 txtrst='\[\e[0m\]'    # Text Reset
 
-case $((RANDOM % 6)) in
+case $((RANDOM % 4)) in
   0) ps_gradient=(196 197 198 199 200 165 129 93 57 21);;
   1) ps_gradient=(93 129 165 201 205 204 203 202);;
   2) ps_gradient=(19 20 56 92 128 164);;
-  5) ps_gradient=(202 203 204 210 216 222 228 227 226);;
+  3) ps_gradient=(202 203 204 210 216 222 228 227 226);;
 esac
 
 ps_template=(hostname retval numjobs loadavg cwd)
