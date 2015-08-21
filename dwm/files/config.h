@@ -2,12 +2,12 @@
 
 /* appearance */
 static const char *fonts[] = {
-    "profont:size=11",
-    "Sans:size=10.5",
-    "VL Gothic:size=10.5",
-    "WenQuanYi Micro Hei:size=10.5",
+    "ProFont:size=8",
+    "Sans:size=7.5",
+    "VL Gothic:size=7.5",
+    "WenQuanYi Micro Hei:size=8",
 };
-static const char dmenufont[]       = "profont:size=11";
+static const char dmenufont[]       = "ProFont:size=8";
 static const char normbordercolor[] = "#3399ff";
 static const char normbgcolor[]     = "#000000";
 static const char normfgcolor[]     = "#3399ff";
@@ -60,6 +60,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selbordercolor, NULL };
+static const char *wpacmd[]   = { "dmenu_wpa", "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selbordercolor, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *lockcmd[]  = { "slock", NULL };
 static const char *padon[]    = { "synclient", "TouchpadOff=0", NULL };
@@ -69,6 +70,7 @@ static const char *setbg[]    = { "setbg", NULL };
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_n,      spawn,          {.v = wpacmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_x,      spawn,          {.v = lockcmd } },
 	{ MODKEY,                       XK_z,      spawn,          {.v = padon } },
