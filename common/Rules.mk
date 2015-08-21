@@ -25,7 +25,7 @@ all: build build/.copy build/.patch
 	@${MAKE} -C build
 
 install: all
-	@${MAKE} -C build install
+	@sudo ${MAKE} -C build install
 
 build: repo/.git
 	@${ECHO} "Cleaning and reseting repository..."
