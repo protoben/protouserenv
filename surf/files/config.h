@@ -11,8 +11,8 @@ static Bool showindicators  = TRUE;  /* Show indicators in window title */
 static Bool zoomto96dpi     = TRUE;  /* Zoom pages to always emulate 96dpi */
 static Bool runinfullscreen = FALSE; /* Run in fullscreen mode by default */
 
-static guint defaultfontsize = 10;   /* Default font size */
-static gfloat zoomlevel = 0.9;      /* Default zoom level */
+static guint defaultfontsize = 11;   /* Default font size */
+static gfloat zoomlevel = 0.94;      /* Default zoom level */
 
 /* Soup default features */
 static char *cookiefile     = "~/.surf/cookies.txt";
