@@ -7,7 +7,7 @@ set wildmode=longest,full
 set wildmenu
 
 " Status line
-set statusline=[%F%m][%l/%L][%o:%B]
+set statusline=%F%m%r%y%=%l/%L:%v(0x%B)
 set laststatus=2 "Always on
 
 " Autoindent
@@ -59,6 +59,7 @@ au BufNewFile,BufRead *.jflex set filetype=jflex
 " Settings for c, cpp, and java source files
 au BufNewFile,BufRead *.c,*.cpp,*.java,*.h,*.hpp set foldenable
 au BufNewFile,BufRead *.c,*.cpp,*.java,*.h,*.hpp set foldmethod=syntax
+au BufNewFile,BufRead *.h set filetype=c
 
 " Settings for markdown files
 au BufNewFile,Bufread *.md set filetype=markdown
