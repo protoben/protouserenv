@@ -1,10 +1,11 @@
-let s:line_comment_leaders = { "c":      "//",
-                             \ "cpp":    "//",
-                             \ "java":   "//",
-                             \ "sh":     "#",
-                             \ "erlang": "%",
-                             \ "tex":    "%",
-                             \ "vim":    '\"'}
+let s:line_comment_leaders = { "c":       "//",
+                             \ "cpp":     "//",
+                             \ "java":    "//",
+                             \ "sh":      "#",
+                             \ "erlang":  "%",
+                             \ "tex":     "%",
+                             \ "vim":     '\"',
+                             \ "haskell": "--"}
 
 fu! ToggleLineComment()
   if has_key(s:line_comment_leaders, &filetype)
