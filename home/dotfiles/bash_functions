@@ -1,30 +1,14 @@
-function wyeastconnect {
-  local PIDFILE="/tmp/wyeastconnect.pid"
-
-  case $1 in
-    -k)
-      if [[ -f ${PIDFILE} ]]; then
-        kill `cat ${PIDFILE}`
-        rm ${PIDFILE}
-      fi;;
-    '')
-      if [[ ! -f ${PIDFILE} ]]; then
-        ssh ada.cs -NL 9001:wyeasthead.cs.pdx.edu:22 &
-        echo $! > ${PIDFILE}
-      fi;;
-    *)
-      echo "Usage: wyeastconnect [-k]"
-  esac
+function godoc-w3m {
+  godoc -html $@ | w3m -T text/html
 }
 
-function ssh-wyeast {
-  wyeastconnect
-  sleep 1
-  ssh -p 9001 localhost $@
-}
+function haddock-w3m {
+  package="$1"
+  index="`ghc-mod doc $package | awk '{print($2)}'`"
+  [[ ! "$index" ]] && {
+    echo "Package documentation not found for $package"
+    exit 1
+  }
 
-function scp-wyeast {
-  wyeastconnect
-  sleep 1
-  scp -P 9001 $@ localhost:
+  w3m -T text/html "${index}/index.html"
 }
