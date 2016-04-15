@@ -16,3 +16,18 @@
 [submodule "surf"]
 	path = surf/repo
 	url = http://git.suckless.org/surf
+[submodule "home/dotfiles/vim/src/ghcmod-vim"]
+	path = home/dotfiles/vim/src/ghcmod-vim
+	url = https://github.com/eagletmt/ghcmod-vim.git
+[submodule "home/dotfiles/vim/src/syntastic"]
+	path = home/dotfiles/vim/src/syntastic
+	url = https://github.com/scrooloose/syntastic.git
+[submodule "home/dotfiles/vim/src/vim-hdevtools"]
+	path = home/dotfiles/vim/src/vim-hdevtools
+	url = https://github.com/bitc/vim-hdevtools.git
+[submodule "home/dotfiles/vim/src/vim-hoogle"]
+	path = home/dotfiles/vim/src/vim-hoogle
+	url = https://github.com/Twinside/vim-hoogle.git
+[submodule "home/dotfiles/vim/src/vimproc.vim"]
+	path = home/dotfiles/vim/src/vimproc.vim
+	url = https://github.com/Shougo/vimproc.vim.git
