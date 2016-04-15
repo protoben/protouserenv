@@ -1,0 +1,13 @@
+:set prompt  "\x03BB: "
+:set prompt2 " | "
+
+:def hoogle \str -> return $ ":! hoogle --count=15 \"" ++ str ++ "\""
+
+:{
+:def man \str ->
+        return $ ":! "
+              ++ "doc=\"" ++ str ++ "\";"
+              ++ "loc=\"`ghc-mod doc \"" ++ str ++ "\" | awk '{print $2}'`\";"
+              ++ "w3m -T text/html \"${loc}/index.html\" 2>/dev/null"
+              ++ "|| echo \"No docs for $doc\""
+:}
