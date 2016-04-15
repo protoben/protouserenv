@@ -40,3 +40,9 @@ complete -W "$switches" sysctl
 
 # Extended file globbing
 shopt -s extglob
+
+# Go stuff
+export GOPATH="${HOME}/proj/go"
+
+# Cabal stuff
+[[ ! $PATH =~ "$HOME/.cabal/bin" ]] && PATH="$PATH:$HOME/.cabal/bin"
