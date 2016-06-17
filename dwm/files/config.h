@@ -7,7 +7,7 @@ static const char *fonts[] = {
     "VL Gothic:size=7.5",
     "WenQuanYi Micro Hei:size=8",
 };
-static const char dmenufont[]       = "ProFont:size=7";
+static const char dmenufont[]       = "ProFont:size=8";
 static const char normbordercolor[] = "#3399ff";
 static const char normbgcolor[]     = "#000000";
 static const char normfgcolor[]     = "#3399ff";
