@@ -6,15 +6,15 @@
 static Bool topbar = True;                  /* -b  option; if False, dmenu appears at bottom */
 /* -fn option overrides fonts[0]; default X11 font or font set */
 static const char *fonts[] = {
-	"profont:size=7"
+	"profont:size=8"
 };
 static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
-static const char *normbgcolor = "#000000"; /* -nb option; normal background                 */
+static const char *normbgcolor = "#111111"; /* -nb option; normal background                 */
 static const char *normfgcolor = "#3399ff"; /* -nf option; normal foreground                 */
-static const char *selbgcolor  = "#000000"; /* -sb option; selected background               */
+static const char *selbgcolor  = "#111111"; /* -sb option; selected background               */
 static const char *selfgcolor  = "#ff3399"; /* -sf option; selected foreground               */
 static const char *outbgcolor  = "#00ffff";
-static const char *outfgcolor  = "#000000";
+static const char *outfgcolor  = "#111111";
 /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
 static unsigned int lines      = 0;
 static char persist[BUFSIZ]    = "";        /* Nonempty string turns -p mode on by default   */
