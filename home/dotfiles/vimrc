@@ -65,3 +65,8 @@ highlight SyntasticWarning ctermbg=yellow ctermfg=236
 highlight SyntasticWarningSign ctermbg=236 ctermfg=yellow
 highlight SyntasticStyleWarning ctermbg=yellow ctermfg=236
 highlight SyntasticStyleWarningSign ctermbg=236 ctermfg=yellow
+
+" w3m stuff
+let g:w3m#hover_delay_time = 10
+let g:w3m#homepage = "https://duckduckgo.com/"
+let g:w3m#search_engine = 'https://duckduckgo.com/?q=%s'
