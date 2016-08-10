@@ -1,5 +1,5 @@
 so ~/.vim/plugins.vimrc
-colo candy
+colo rainbow_neon
 
 syn on
 set nocompatible
