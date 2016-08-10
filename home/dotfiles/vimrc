@@ -1,72 +1,20 @@
-syn on
-colo astroboy
-set nocompatible
+so ~/.vim/plugins.vimrc
+colo candy
 
-" Command tab completion
+syn on
+set nocompatible
+set number
+set laststatus=2
+
 set wildmode=longest,full
 set wildmenu
 
-" Status line
-function! UserStatusCmd()
-  return ''
-endfunction
-set statusline=
-set statusline+=%F%m%r%y%q
-set statusline+=%{UserStatusCmd()}
-set statusline+=%=
-set statusline+=%l/%L:%v(0x%B)
-set laststatus=2 "Always on
-
-" Enable plugins
 filetype plugin indent on
 
-" Autoindent
-set autoindent
-set expandtab
-set tabstop=8
-set shiftwidth=2
+let mapleader='\<Space>'
 
-" Highlight long lines
-match ErrorMsg '\%>80v.\+'
-
-" Running make
-so ~/.vim/makestuff.vimrc
-
-" Header templates
-so ~/.vim/vimtemplates.vimrc
-
-" Commenting blocks of code.
-so ~/.vim/autocomment.vimrc
-
-" Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_aggregate_errors = 1
-let g:syntastic_error_sign = 'E>'
-let g:syntastic_warning_sign = 'W>'
-let g:syntastic_auto_jump = 1
-let b:syntastic_mode = 'passive'
-nnoremap <silent> NN :SyntasticCheck<CR>
-nnoremap <silent> NL :SyntasticReset<CR>
-
-highlight Search ctermfg=NONE ctermbg=236
-highlight SignColumn ctermbg=236
-highlight SyntasticError ctermbg=magenta ctermfg=236
-highlight SyntasticErrorSign ctermbg=236 ctermfg=magenta
-highlight SyntasticStyleError ctermbg=magenta ctermfg=236
-highlight SyntasticStyleErrorSign ctermbg=236 ctermfg=magenta
-highlight SyntasticWarning ctermbg=yellow ctermfg=236
-highlight SyntasticWarningSign ctermbg=236 ctermfg=yellow
-highlight SyntasticStyleWarning ctermbg=yellow ctermfg=236
-highlight SyntasticStyleWarningSign ctermbg=236 ctermfg=yellow
-
-" w3m stuff
-let g:w3m#hover_delay_time = 10
-let g:w3m#homepage = "https://duckduckgo.com/"
-let g:w3m#search_engine = 'https://duckduckgo.com/?q=%s'
+so ~/.vim/colors.vimrc
+so ~/.vim/airline.vimrc
+so ~/.vim/signify.vimrc
+so ~/.vim/w3m.vimrc
+so ~/.vim/haskellmode.vimrc
