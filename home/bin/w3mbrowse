@@ -1,0 +1,28 @@
+#! /usr/bin/env bash
+
+ARGVEC=($0 $@)
+
+W3MOPTS=
+URI="duckduckgo.com"
+
+OPTSTRING="hq:nb:l"
+USAGE="Usage: $0 [-hnl] [-b bookmark_num] [-q search_query]
+       \n\t-q) Specify a duckduckgo search query
+       \n\t-h) Print this message"
+
+while getopts $OPTSTRING opt
+do
+  case $opt in
+    q) URI="duckduckgo.com?q=$OPTARG"; SURFOPTS='-bS';;
+    h) echo -e $USAGE; exit 0;;
+    \?) echo -e $USAGE; exit 1;;
+  esac
+done
+
+if [[ $OPTIND -le $# ]]
+then
+  shift $(($# - 1))
+  URI=$1
+fi
+
+w3m $W3MOPTS "$URI"

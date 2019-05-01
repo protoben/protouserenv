@@ -35,14 +35,54 @@ bakcyn='\[\e[46m\]'   # Cyan
 bakwht='\[\e[47m\]'   # White
 txtrst='\[\e[0m\]'    # Text Reset
 
-case $((RANDOM % 4)) in
-  0) ps_gradient=(196 197 198 199 200 165 129 93 57 21);;
-  1) ps_gradient=(93 129 165 201 205 204 203 202);;
-  2) ps_gradient=(19 20 56 92 128 164);;
-  3) ps_gradient=(202 203 204 210 216 222 228 227 226);;
+case $((RANDOM % 3)) in
+  0) ps_gradient=(21 27 33 39 45 123 45 39 33 27 21);;
+  1) ps_gradient=(196 197 198 199 200 206 213 219 213 206 199 198 197 196);;
+  2) ps_gradient=(56 92 128 164 200 207 200 164 128 92 56);;
+  # ps_gradient=(45 39 33 27 21 27 33 39 45 123);;
+  # ps_gradient=(213 206 199 198 197 196 197 198 199 200 206 213 219);;
+  # ps_gradient=(129 135 141 147 153 159 158 152 146 140 134 128);;
+  # ps_gradient=(93 129 165 201 205 204 203 202);;
+  # ps_gradient=(227 221 215 209 203 197 198 204 210 216 222 228);;
+  # ps_gradient=(202 203 204 210 216 222 228 227 226);;
+  # ps_gradient=(196 197 198 199 200 165 129 93 57 21);;
+  # ps_gradient=(19 20 56 92 128 164);;
 esac
+#gmax=231
+#gmin=16
+#gelem=$((RANDOM%(gmax+1-gmin) + gmin))
+#gdir=$((RANDOM%2 - 1))
+#ginc () {
+#  local arg=$(($1))
+#  local ninc=0
+#  declare -a incs
+#  incs=()
+#
+#  while ((nincs == 0)); do
+#    case $gdir in
+#      -1)
+#        ((((arg-gmin - (arg-gmin)%6)/6)%6 > 0 && arg >= gmin+6)) && incs[$((ninc++))]=-6
+#        ((arg%6 > 0 && arg >= gmin+1)) && incs[$((ninc++))]=-1
+#        ;;
+#      1)
+#        ((((arg-gmin - (arg-gmin)%6)/6)%6 < 5 && arg <= gmax-6)) && incs[$((ninc++))]=6
+#        ((arg%6 < 5 && arg >= gmax-1)) && incs[$((ninc++))]=1
+#        ;;
+#    esac
+#    ((nincs == 0)) && ((gdir *= -1))
+#  done
+#
+#  local r=$((RANDOM % ninc))
+#  echo $((arg + ${incs[$r]}))
+#}
+#gsize=10
+#ps_gradient=()
+#for ((i = 0; i < gsize; ++i)); do
+#  gelem=$(ginc $gelem)
+#  ps_gradient[$i]=$gelem
+#done
 
-ps_template=(hostname retval numjobs loadavg cwd)
+ps_template=(hostname numjobs cwd)
 
 makeps() {
   local ret=$?
@@ -95,20 +135,6 @@ makeps() {
       ((`echo -n $cwd | wc -c` + 4 > max_w)) &&
         cwd="`basename $cwd`"
       echo -n "[ $cwd ]"
-      ;;
-    line1)
-      echo -n "$(prompt h)$(prompt r)$(prompt j)"
-      ;;
-    line2)
-      echo -n "$(prompt L)$(prompt w)"
-      ;;
-    $)
-      if (( EUID == 0 )); then
-        echo -n '# '
-      else
-        echo -n '$ '
-      fi
-      echo -n "$txtrst"
       ;;
     colorize)
       local longest=0

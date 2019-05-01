@@ -13,7 +13,7 @@ vbell off
 vbell_msg ""
 bell_msg "<><>ding<><>"
 
-bind ^x quit
+#bind ^x quit
 bind ^q remove
 
 # Change screens with ctrl left and right arrows.
@@ -26,7 +26,7 @@ bindkey ^@ windowlist
 term screen-256color
 terminfo rxvt-unicode 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
 
-caption always "%{= kb}[ %=%{B}%?%-Lw%?%{w}%n*%f %t%?(%u)%?%{B}%?%+Lw%?%?%= %{b}][%{B} %H %{w}%l %{b}][%{B} %d.%m.%Y %{w}%0c %{b}]"
+caption always "%{= kb}[ %=%{B}%?%-Lw%?%{w}%n*%f %t%?(%u)%?%{B}%?%+Lw%?%?%= %{b}][%{B} %H %{w}%l %{b}][%{B} %d.%m.%Y %{b}]"
 sorendition kB
 
 screen bash

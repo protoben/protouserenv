@@ -51,5 +51,6 @@ fi
 
 #xcompmgr &
 #hsetroot -fill "/home/hamlinb/desktop/seoul-pink.jpeg" -gamma .7
-/home/hamlinb/bin/setbg #Use a random bg out of ~/desktop
-exec dwm
+#/home/hamlinb/bin/setbg #Use a random bg out of ~/desktop
+#exec dwm
+exec i3

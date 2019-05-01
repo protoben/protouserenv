@@ -1,14 +1,24 @@
 function godoc-w3m {
-  godoc -html $@ | w3m -T text/html
+        godoc -html $@ | w3m -T text/html
 }
 
 function haddock-w3m {
-  package="$1"
-  index="`ghc-mod doc $package | awk '{print($2)}'`"
-  [[ ! "$index" ]] && {
-    echo "Package documentation not found for $package"
-    exit 1
-  }
+        package="$1"
+        index="`ghc-mod doc $package | awk '{print($2)}'`"
+        [[ ! "$index" ]] && {
+                echo "Package documentation not found for $package"
+                exit 1
+        }
+        
+        w3m -T text/html "${index}/index.html"
+}
 
-  w3m -T text/html "${index}/index.html"
+function show-256-colors {
+        cols=$(tput cols)
+        for i in `seq 1 255`; do
+                j=$(printf "%03d" $i)
+                echo -ne "\e[38;5;${j}m"'\\'"e[38;5;${j}m\e[0m\t"
+                ((i%(cols/16) == 0)) && echo
+        done
+        echo
 }

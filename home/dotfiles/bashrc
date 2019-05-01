@@ -17,10 +17,8 @@
 # Add "/home/hamlinb/bin" to executable path only if it's not there
 [[ ! $PATH =~ "$HOME/bin" ]] && PATH="$PATH:$HOME/bin"
 
-# Add tab completion for various programs
-complete -cf sudo
-complete -c man
-complete -W "`cut -d ',' -f 1 $HOME/.ssh/known_hosts | cut -d ' ' -f 1 | sort | uniq | xargs`" ssh
+# Add "/home/hamlinb/.local/bin" to executable path only if it's not there
+[[ ! $PATH =~ "$HOME/.local/bin" ]] && PATH="$PATH:$HOME/.local/bin"
 
 # Default browser: w3m
 export BROWSER=`command -v w3m`
@@ -30,13 +28,20 @@ export wiki_browser=$BROWSER
 export EDITOR=`command -v vim`
 export VISUAL=`command -v vim`
 
-# Fontname completion for figlet
-fonts="`find  /usr/share/figlet/fonts/ -name *.[ft]lf | sed -r 's/.*\/(.*)\.[ft]lf$/\1/'`"
-complete -W "$fonts" figlet
+# Default pager: less
+export PAGER="`command -v less` -R"
 
-# Completion for sysctl
-switches="`sysctl -N net 2> /dev/null`"
-complete -W "$switches" sysctl
+# Mosh options
+export MOSH_ESCAPE_KEY='~'
+
+# Add bcc stuff to manpath
+export MANPATH="`manpath -q`:/usr/share/bcc/man"
+
+# No special characters in dialog
+#export DIALOGOPTS="--ascii-lines"
+
+# Source completion file if present
+[[ -f $HOME/.bash_completion ]] && . $HOME/.bash_completion
 
 # Extended file globbing
 shopt -s extglob
@@ -46,3 +51,22 @@ export GOPATH="${HOME}/proj/go"
 
 # Cabal stuff
 [[ ! $PATH =~ "$HOME/.cabal/bin" ]] && PATH="$PATH:$HOME/.cabal/bin"
+
+# Less Colors for Man Pages
+export LESS_TERMCAP_mb=$(tput setaf 208)            # begin blinking
+export LESS_TERMCAP_md=$(tput bold; tput setaf 140) # begin bold
+export LESS_TERMCAP_me=$(tput sgr0)                 # end mode
+export LESS_TERMCAP_se=$(tput sgr0)                 # end standout-mode
+export LESS_TERMCAP_so=$(tput smso; tput setaf 50)  # begin standout-mode - info box
+export LESS_TERMCAP_ue=$(tput sgr0; tput rmul)      # end underline
+export LESS_TERMCAP_us=$(tput smul; tput setaf 198) # begin underline
+
+# Abduco for detach functionality with vim
+export ABDUCO_SOCKET_DIR=${XDG_CONFIG_HOME}
+export ABDUCO_CMD="vim -c 'ConqueTerm bash'"
+
+# Nix stuff
+[[ -e .nix-profile/etc/profile.d/nix.sh ]] &&
+    source .nix-profile/etc/profile.d/nix.sh
+
+export PGROOT=/var/lib/postgres

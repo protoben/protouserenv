@@ -12,4 +12,5 @@ alias vimake="vim -c make -c 'botright cwindow'"
 alias play="mplayer -vo null"
 alias w3mgodoc='w3m -T text/html <<< godoc -html'
 alias cryptol2='~/src/cryptol/dist/build/cryptol/cryptol'
+alias primary2clipboard='xclip -o -selection p | xclip -i -selection c'
 #alias ghci="ghci 2>&1 | HsColour"
